@@ -65,6 +65,7 @@ export class DataPanel extends DataPanelPolymer {
 
   initialize(projector: Projector, dp: DataProvider) {
     this.projector = projector;
+    let dataProviderSame = this.dataProvider == dp;
     this.dataProvider = dp;
     this.setupUploadButtons();
 
@@ -88,7 +89,11 @@ export class DataPanel extends DataPanelPolymer {
       this.runNames = runs;
       // Choose the first run by default.
       if (this.runNames.length > 0) {
+        let selectedRunSame = this.selectedRun == runs[0];
         this.selectedRun = runs[0];
+        if (selectedRunSame && !dataProviderSame) {
+          this._selectedRunChanged();
+        }
       }
     });
   }
